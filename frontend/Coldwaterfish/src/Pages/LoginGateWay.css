@@ -1,0 +1,55 @@
+/*   역할 상단 검은색 바를 화면 맨 위로 밀착시키고 전체 너비로 확장합니다. */
+.header {
+    display: flex;
+    justify-content: center; 
+    align-items: center;     
+
+    position: fixed;         
+    top: 0;                  
+    left: 0;                
+    width: 100%;             
+    
+    height: 60px;           
+    background: #333;        
+    border-bottom: 2px solid black;
+    color: white;
+    z-index: 1000;           
+}
+
+
+.menu-wrapper {
+    padding-top: 60px;       
+}
+
+
+.nav {
+    display: flex;
+    gap: 40px;               /* 역할  글자 사이의 간격 */
+}
+
+.nav a {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.chatbot-zone {
+    width: 800px;
+    height: 300px; 
+    margin: 40px auto;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+
+.chatbot-zone:hover {
+    background: rgba(255, 255, 255, 0.1); 
+    border: 1px solid #3498db;          
+    box-shadow: 0 0 20px rgba(52, 152, 219, 0.2);
+}

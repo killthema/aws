@@ -1,0 +1,62 @@
+
+.menu-page {
+    width: 100%;
+    min-height: 100vh;
+    background: linear-gradient(to bottom, #e0f7fa 0%, #80deea 100%);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* [역할] 상단 바를 검은색으로 고정하고 메뉴를 가로로 배치합니다. */
+.black-header {
+    position: fixed;       
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background-color: #333; 
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    z-index: 1000;
+}
+
+/* [역할] 메뉴 항목들의 간격과 글자 스타일 설정 */
+.nav-inner {
+    display: flex;
+    gap: 30px;              
+}
+
+.nav-item {
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.nav-item:hover {
+    color: #80deea;          
+}
+
+.logout {
+    color: #ff8a80;         
+    margin-left: 20px;
+}
+
+/*  향후 업데이트 예정 페이지*/
+.main-content {
+    flex: 1;                 
+    display: flex;
+    justify-content: center; 
+    align-items: center;     
+}
+
+.main-title {
+    font-size: 24px;
+    color: #37474f;          
+    font-weight: bold;
+    letter-spacing: 1px;    
+}

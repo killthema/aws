@@ -1,0 +1,76 @@
+plugins {
+    id 'java'
+    // [역할]: 스프링 부트 프로젝트의 핵심 기능을 제공합니다.
+    id 'org.springframework.boot' version '3.4.2'
+    // [역할]: 의존성 라이브러리들의 버전을 자동으로 관리해줍니다.
+    id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+description = 'Coldwatefish-project'
+
+java {
+    toolchain {
+        // [역할]: 자바 21 버전을 사용하여 프로젝트를 빌드합니다.
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    // [역할]: 필요한 라이브러리들을 다운로드할 원격 창고(Library Store)를 설정합니다.
+    mavenCentral()
+}
+
+dependencies {
+    // 1. [역할]: REST API 및 웹 서버(Tomcat) 기능을 제공합니다.
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    // 2. [역할]: 데이터베이스(MariaDB)와 자바 객체를 연결(JPA)해줍니다.
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    // 3. [역할]: JSON 데이터를 자바 객체로 변환하거나 그 반대 처리를 돕습니다.
+    implementation 'com.fasterxml.jackson.core:jackson-databind'
+
+    // 4. [역할]: 실제 마리아DB(MariaDB)와 통신하기 위한 운전기사(Driver)입니다.
+    runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
+
+    // 5. [역할]: 이메일 발송 기능을 담당합니다. (빨간 줄 해결사!) [cite: 2026-01-06]
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
+
+    // 6. [역할]: Getter, Setter 등 반복적인 코드를 자동으로 생성해줍니다.
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    // 7. [역할]: 작성한 코드가 잘 작동하는지 테스트하는 도구입니다.
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    // 8.AWS S3 SDK (Java v2)
+    implementation 'software.amazon.awssdk:s3:2.20.0'
+
+    implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
+}
+
+// [작동 순서]: 빌드 시 'mainClass'를 직접 지정하여 "서버 지정 안됨" 에러를 원천 차단합니다.
+
+bootJar {
+    // 'r'을 뺀 사용자님의 실제 코드 주소와 100% 일치시킨 설정입니다.
+    mainClass = 'com.example.coldwatefishproject.ColdwatefishProjectApplication'
+    archiveFileName = 'app.jar'
+}
+// [역할]: 불필요한 '-plain.jar' 파일이 생성되지 않도록 설정합니다.
+jar {
+    enabled = false
+}
+
+
+
+tasks.named('test') {
+    useJUnitPlatform()
+}

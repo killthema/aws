@@ -1,0 +1,1 @@
+{'atka_mackerel': 0, 'brown_trout': 1, 'catfish': 2, 'cod': 3, 'dace': 4, 'dolly_varden': 5, 'flatfish': 6, 'greenling': 7, 'hairtail': 8, 'jacopever': 9, 'lenok': 10, 'mackerel': 11, 'masou_salmon': 12, 'minnow': 13, 'monkfish': 14, 'pollack': 15, 'rainbow_trout': 16, 'river_puffer': 17, 'salmon': 18, 'smelt': 19, 'tilefish': 20, 'yellowtail': 21}
