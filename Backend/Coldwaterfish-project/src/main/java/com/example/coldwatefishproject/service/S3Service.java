@@ -12,39 +12,34 @@ import java.io.IOException;
 import java.util.UUID;
 
 @Service
-@RequiredArgsConstructor
+@RequiredArgsConstructor //  S3Config에서 만든 S3Client를 자동으로 가져옵니다(생성자 주입).
 public class S3Service {
 
     private final S3Client s3Client;
 
-    @Value("${cloud.aws.s3.bucket}")
-    private String bucket;
-
-    @Value("${cloud.aws.region.static}")
-    private String region;
+    @Value("${cloud.aws.s3.bucket}") //  application.properties에 적은 창고 이름을 가져옵니다.
+    private String bucketName;
 
     /**
-     * [작동 순서]:
-     * 1. 파일이 겹치지 않게 '랜덤ID_파일명'으로 새 이름을 짓습니다.
-     * 2. S3 창고에 넣을 박스(PutObjectRequest)를 준비합니다.
-     * 3. 실제 사진 데이터를 S3로 전송합니다.
-     * 4. 업로드된 사진의 인터넷 주소(URL)를 문자열로 만들어 반환합니다.
+     * [기능] 이미지를 S3에 업로드하고, 저장된 URL 주소를 반환합니다.
      */
     public String uploadFile(MultipartFile file) throws IOException {
-        // [역할]: 전 세계에서 하나뿐인 이름(UUID)을 붙여 파일 덮어쓰기를 방지합니다.
+        // 1. 파일 이름 중복 방지를 위해 랜덤한 이름을 생성합니다 (예: UUID_물고기.jpg).
         String fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
 
+        // 2. S3에 "이 창고의 이 이름으로 파일을 넣겠다"는 요청서를 작성합니다.
         PutObjectRequest putObjectRequest = PutObjectRequest.builder()
-                .bucket(bucket)
+                .bucket(bucketName)
                 .key(fileName)
-                .contentType(file.getContentType())
+                .contentType(file.getContentType()) // 파일 형식(image/jpeg 등)을 지정합니다.
                 .build();
 
-        // [작동]: S3Client를 이용해 실제로 파일을 전송합니다.
+        // 3. 실제로 S3 창고에 파일을 전송합니다.
         s3Client.putObject(putObjectRequest,
                 RequestBody.fromInputStream(file.getInputStream(), file.getSize()));
 
-        // [역할]: 버지니아 리전(us-east-1) 전용 URL 형식을 만들어 리액트로 보내줍니다.
-        return String.format("https://%s.s3.%s.amazonaws.com/%s", bucket, region, fileName);
+        // 4. 업로드된 파일의 공개 주소(URL)를 만들어서 반환합니다.
+        // 포트폴리오용이므로 누구나 이 주소로 사진을 볼 수 있게 됩니다.
+        return String.format("https://%s.s3.ap-northeast-2.amazonaws.com/%s", bucketName, fileName);
     }
 }

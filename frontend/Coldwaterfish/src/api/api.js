@@ -1,7 +1,7 @@
 import axios from 'axios';
 //서버를 동적으로 결정한다 //
-const BASE_API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8090/api'; 
-const BASE_AI_URL = process.env.REACT_APP_AI_URL || 'http://localhost:5000';
+const BASE_API_URL = process.env.REACT_APP_API_URL || 'http://43.201.48.137:8090/api';
+const BASE_AI_URL = process.env.REACT_APP_AI_URL || 'http://43.201.48.137:5000';
 
 
 /// : 서버 주소를 동적으로 결정합니다. (AWS 배포 시 .env 파일의 주소를 우선 사용)
