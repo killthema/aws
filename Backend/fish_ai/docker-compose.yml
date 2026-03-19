@@ -1,0 +1,23 @@
+version: '3.10'
+
+services:
+  # [서비스 1]: 자바 서버
+  java-backend:
+    build: ./java-backend
+    container_name: fish-java
+    ports:
+      - "8090:8090"
+    environment:
+      # [작동 순서]: .env에 적힌 값을 ${}를 통해 주입합니다.
+      - SPRING_DATASOURCE_URL=${DB_URL}
+      - SPRING_DATASOURCE_USERNAME=${DB_USERNAME}
+      - SPRING_DATASOURCE_PASSWORD=${DB_PASSWORD}
+    restart: always
+
+  # [서비스 2]: 파이썬 AI 서버
+  python-ai:
+    build: ./fish-ai
+    container_name: fish-ai
+    ports:
+      - "5000:5000"
+    restart: always

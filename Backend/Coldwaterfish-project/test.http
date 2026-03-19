@@ -1,0 +1,36 @@
+### 1. 회원가입 테스트
+POST http://localhost:8090/api/members/signup
+Content-Type: application/json
+
+{
+  "username": "fish_lover",
+  "password": "1234",
+  "email": "fish@test.com",
+  "nickname": "송어대장"
+}
+
+### 2. 로그인 테스트 (성공)
+POST http://localhost:8090/api/members/login
+Content-Type: application/json
+
+{
+  "username": "fish_lover",
+  "password": "1234"
+}
+
+### 3. 아이디 찾기 테스트
+POST http://localhost:8090/api/members/find-id
+Content-Type: application/json
+
+{
+  "email": "fish@test.com"
+}
+
+### 4. 비밀번호 찾기 테스트
+POST http://localhost:8090/api/members/find-pw
+Content-Type: application/json
+
+{
+  "username": "fish_lover",
+  "email": "fish@test.com"
+}
